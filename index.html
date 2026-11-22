@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Barbería Demo · Santiago</title>
+<meta name="description" content="Demo de perfil digital NFC para negocios">
+<meta name="theme-color" content="#0b1020">
+<style>
+  :root{
+    --bg:#0b1020; --card:#131a30; --card2:#1a2342; --line:#27315a;
+    --txt:#eef1ff; --mut:#9aa6d1; --acc:#4f8cff; --acc2:#7c5cff; --ok:#2ecc8f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:radial-gradient(900px 500px at 50% -10%,#1b2860 0%,var(--bg) 60%);
+    color:var(--txt);min-height:100vh;display:flex;justify-content:center;
+    padding:24px 16px calc(32px + env(safe-area-inset-bottom));
+  }
+  main{width:100%;max-width:420px}
+  .demo{
+    text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--mut);margin-bottom:14px
+  }
+  .demo b{color:var(--acc)}
+  .head{text-align:center;margin-bottom:22px}
+  .logo{
+    width:92px;height:92px;border-radius:24px;margin:0 auto 14px;
+    background:linear-gradient(135deg,var(--acc),var(--acc2));
+    display:grid;place-items:center;font-size:40px;font-weight:800;
+    box-shadow:0 10px 30px rgba(79,140,255,.35)
+  }
+  h1{font-size:24px;font-weight:800;letter-spacing:-.01em}
+  .tag{color:var(--acc);font-size:13px;font-weight:600;margin:4px 0 8px}
+  .desc{color:var(--mut);font-size:14px;line-height:1.5}
+  .open{
+    display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;
+    color:var(--ok);background:rgba(46,204,143,.1);border:1px solid rgba(46,204,143,.3);
+    padding:5px 11px;border-radius:999px
+  }
+  .open i{width:7px;height:7px;border-radius:50%;background:var(--ok);display:block}
+  .primary{
+    display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    padding:16px;border-radius:16px;border:0;cursor:pointer;color:#fff;
+    font-size:16px;font-weight:700;text-decoration:none;margin-bottom:12px;
+    background:linear-gradient(135deg,#25d366,#128c7e);
+    box-shadow:0 8px 24px rgba(37,211,102,.25)
+  }
+  .list{display:flex;flex-direction:column;gap:10px}
+  .btn{
+    display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;
+    background:var(--card);border:1px solid var(--line);color:var(--txt);
+    text-decoration:none;font-size:15px;font-weight:600;cursor:pointer;width:100%;
+    font-family:inherit;text-align:left;transition:transform .08s,background .15s
+  }
+  .btn:active{transform:scale(.98);background:var(--card2)}
+  .ic{
+    width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none;
+    background:var(--card2);color:var(--acc)
+  }
+  .ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .btn small{display:block;font-weight:400;color:var(--mut);font-size:12px;margin-top:2px}
+  .chev{margin-left:auto;color:var(--mut);font-size:18px}
+  .star .ic{color:#ffc542}
+  .foot{text-align:center;color:var(--mut);font-size:11px;margin-top:22px;line-height:1.6}
+  .foot a{color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+  <div class="demo"><b>Demo</b> · negocio ficticio · datos de ejemplo</div>
+
+  <section class="head">
+    <div class="logo" id="logo">B</div>
+    <h1 id="nombre"></h1>
+    <p class="tag" id="rubro"></p>
+    <p class="desc" id="desc"></p>
+    <span class="open"><i></i><span id="horario"></span></span>
+  </section>
+
+  <a class="primary" id="wa" data-evt="whatsapp" target="_blank" rel="noopener">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.5 9.9-9.8 9.9zm5.4-7.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3 2 3.1 4.9 4.3c1.8.8 2.5.8 3.4.7.5-.1 1.8-.7 2-1.4s.3-1.300.2-1.400c-.1-.1-.3-.2-.6-.3z"/></svg>
+    Escríbenos por WhatsApp
+  </a>
+
+  <nav class="list" id="lista"></nav>
+
+  <p class="foot">
+    Perfil digital por <b>InfoAUnToque</b><br>
+    <span id="origen"></span>
+  </p>
+</main>
+
+<script>
+/* ====== CONFIGURA AQUÍ EL NEGOCIO (todo es ficticio en esta demo) ====== */
+const NEGOCIO = {
+  nombre: "Barbería Demo",
+  rubro:  "Barbería · Santiago",
+  desc:   "Cortes, barba y buen ambiente. Agenda tu hora en segundos o cuéntanos cómo te fue.",
+  horario:"Lun a Sáb · 10:00 a 20:00",
+  whatsapp: "56900000000",              // sin + ni espacios
+  telefono: "+56900000000",
+  instagram:"https://instagram.com/",   // reemplazar por la cuenta real
+  mapa:     "https://maps.google.com/?q=Plaza+de+Armas+Santiago",
+  resena:   "https://search.google.com/local/writereview?placeid=REEMPLAZAR_PLACE_ID",
+  agenda:   "https://wa.me/56900000000?text=Hola!%20Quiero%20agendar%20una%20hora"
+};
+/* ======================================================================= */
+
+const ICONOS = {
+  agenda:'<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>',
+  resena:'<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  mapa:'<path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/>',
+  instagram:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.500" cy="6.500" r=".6"/>',
+  llamar:'<path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  contacto:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'
+};
+const ACCIONES = [
+  {k:"agenda",    t:"Agendar una hora",     s:"Respuesta rápida por WhatsApp", href:NEGOCIO.agenda},
+  {k:"resena",    t:"Dejar una reseña",     s:"Cuéntanos cómo te fue en Google", href:NEGOCIO.resena, cls:"star"},
+  {k:"mapa",      t:"Cómo llegar",          s:"Abrir en Google Maps",          href:NEGOCIO.mapa},
+  {k:"instagram", t:"Instagram",            s:"Mira nuestros trabajos",        href:NEGOCIO.instagram},
+  {k:"llamar",    t:"Llamar",               s:NEGOCIO.telefono,                href:"tel:"+NEGOCIO.telefono},
+  {k:"contacto",  t:"Guardar contacto",     s:"Añádenos a tu agenda",          vcard:true}
+];
+
+const $ = id => document.getElementById(id);
+$("nombre").textContent = NEGOCIO.nombre;
+$("rubro").textContent  = NEGOCIO.rubro;
+$("desc").textContent   = NEGOCIO.desc;
+$("horario").textContent= NEGOCIO.horario;
+$("logo").textContent   = NEGOCIO.nombre.charAt(0);
+$("wa").href = "https://wa.me/" + NEGOCIO.whatsapp + "?text=" + encodeURIComponent("Hola! Te escribo desde tu perfil digital");
+
+ACCIONES.forEach(a=>{
+  const el = document.createElement(a.vcard ? "button" : "a");
+  el.className = "btn " + (a.cls||"");
+  el.dataset.evt = a.k;
+  if(!a.vcard){ el.href = a.href; if(a.href.startsWith("http")){el.target="_blank";el.rel="noopener";} }
+  el.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24">'+ICONOS[a.k]+'</svg></span>'+
+                 '<span>'+a.t+'<small>'+a.s+'</small></span><span class="chev">›</span>';
+  if(a.vcard) el.addEventListener("click", descargarVCard);
+  $("lista").appendChild(el);
+});
+
+function descargarVCard(){
+  const v = ["BEGIN:VCARD","VERSION:3.0","FN:"+NEGOCIO.nombre,"ORG:"+NEGOCIO.nombre,
+             "TEL;TYPE=WORK,VOICE:"+NEGOCIO.telefono,"URL:"+location.origin,"END:VCARD"].join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([v],{type:"text/vcard"}));
+  a.download = NEGOCIO.nombre.replace(/\s+/g,"_")+".vcf";
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* ---- Medición anónima: sin cookies, sin datos personales ---- */
+const q = new URLSearchParams(location.search);
+const SRC = (q.get("s")||"directo").toLowerCase();   // nfc | qr | directo
+const PIEZA = (q.get("p")||"-");                      // id de la pieza: mesa1, caja, etc.
+$("origen").textContent = SRC==="nfc" ? "Llegaste con un toque NFC ✓" : SRC==="qr" ? "Llegaste con un código QR" : "";
+function track(e){
+  try{
+    const body = JSON.stringify({e, s:SRC, p:PIEZA});
+    if(navigator.sendBeacon){ navigator.sendBeacon("/api/track", new Blob([body],{type:"application/json"})); }
+    else { fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body,keepalive:true}); }
+  }catch(_){}
+}
+track("view");
+document.addEventListener("click", ev=>{
+  const el = ev.target.closest("[data-evt]");
+  if(el) track("click_"+el.dataset.evt);
+});
+</script>
+</body>
+</html>

@@ -157,10 +157,11 @@ function descargarVCard(){
 const q = new URLSearchParams(location.search);
 const SRC = (q.get("s")||"directo").toLowerCase();   // nfc | qr | directo
 const PIEZA = (q.get("p")||"-");                      // id de la pieza: mesa1, caja, etc.
+const NEG = (q.get("n")||"demo");                     // id del negocio (para varios clientes)
 $("origen").textContent = SRC==="nfc" ? "Llegaste con un toque NFC ✓" : SRC==="qr" ? "Llegaste con un código QR" : "";
 function track(e){
   try{
-    const body = JSON.stringify({e, s:SRC, p:PIEZA});
+    const body = JSON.stringify({e, s:SRC, p:PIEZA, n:NEG});
     if(navigator.sendBeacon){ navigator.sendBeacon("/api/track", new Blob([body],{type:"application/json"})); }
     else { fetch("/api/track",{method:"POST",headers:{"Content-Type":"application/json"},body,keepalive:true}); }
   }catch(_){}
